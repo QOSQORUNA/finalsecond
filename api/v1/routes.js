@@ -9,37 +9,46 @@ var authMiddleware = require('../../middleware');
 const pedidos = [{
         id: 1,
         name: 'Fernando Lovaton',
-        productos: [1, 2, 3]
+        productos: [1, 2, 3],
+        monto: 50
     },
     {
         id: 2,
         name: 'Jose Lovaton',
-        productos: [1]
+        productos: [1],
+        monto: 5
     },
     {
         id: 3,
         name: 'Angel Lovaton ',
-        productos: [3]
+        productos: [3],
+        monto: 10
     },
 ]
 
-router.get('/auth/token', function(req, res) {
-    var token = jwt.encode(payload, secret);
-    res.json(token);
-});
+// router.get('/auth/token', function(req, res) {
+//     var token = jwt.encode(payload, secret);
+//     res.json(token);
+// });
 
-router.get('/pedidos', [authMiddleware], function(req, res) {
+// router.get('/pedidos', [authMiddleware], function(req, res) {
+//     res.status(200).json({
+//         content: pedidos
+//     });
+// });
+router.get('/pedidos', function(req, res) {
     res.status(200).json({
         content: pedidos
     });
 });
 
 
-router.post('/pedidos', [authMiddleware], function(req, res) {
+router.post('/pedidos', function(req, res) {
 
-    // aea ;v
+
     var nombre = req.body.nombre;
     var productos = req.body['productos[]'];
+    var monto = req.body.monto;
 
 
     console.log(req.body);
@@ -47,7 +56,8 @@ router.post('/pedidos', [authMiddleware], function(req, res) {
     pedidos.push({
         id: (new Date()).getTime(),
         name: nombre,
-        productos: productos
+        productos: productos,
+        monto: monto
     })
 
     res.status(201).json({

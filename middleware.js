@@ -14,7 +14,7 @@ module.exports = function authMiddleware(req, res, next) {
         token = token.split(' ')[1];
     }
 
-    // ya ta
+
 
     try {
         jwt.decode(token, secret);
